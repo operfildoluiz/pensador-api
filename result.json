@@ -1,31 +1,3 @@
-# pensador
-🤔 Pensador é um pacote Node que traz frases de pensadores
-
-## Instalação
-
-```
-yarn add pensador 
-// or
-npm install --save pensador
-```
-
-## Como usar?
-
-Primeiro, importe o pacote e depois chame a função passando as opções.
-
-
-*NOTE*: Pensador é assíncrono, logo você deve usar Promises ou Async/Await.
-
-
-```
-const pensador = require('pensador')
-
-...
-
-const array = await pensador({ term: "Elon Musk", max: 5 })
-
-// Returns:
-/*
 {
     "total": 5,
     "searchTerm": "frases_de_elon_musk",
@@ -52,16 +24,3 @@ const array = await pensador({ term: "Elon Musk", max: 5 })
         }
     ]
 }
-*/
-```
-
-
-## Opções
-
-*term* (obrigatória) (string)
-
-Um termo a ser pesquisado. O pacote irá adicionar automaticamente o prefixo "frases de", padrão do site Pensador.com
-
-*max* (opcional) (integer)
-
-Número máximo de registros que o pacote deve retornar. Deixe me branco para capturar todos os disponíveis no termo.

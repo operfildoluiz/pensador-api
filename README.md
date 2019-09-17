@@ -1,12 +1,12 @@
-# pensador
+# pensador-api
 🤔 Pensador é um pacote Node que traz frases de pensadores
 
 ## Instalação
 
 ```
-yarn add pensador 
+yarn add pensador-api 
 // or
-npm install --save pensador
+npm install --save pensador-api
 ```
 
 ## Como usar?
@@ -14,11 +14,11 @@ npm install --save pensador
 Primeiro, importe o pacote e depois chame a função passando as opções.
 
 
-*NOTE*: Pensador é assíncrono, logo você deve usar Promises ou Async/Await.
+*NOTE*: pensador-api é assíncrono, logo você deve usar Promises ou Async/Await.
 
 
 ```
-const pensador = require('pensador')
+const pensador = require('pensador-api')
 
 ...
 

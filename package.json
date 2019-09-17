@@ -1,9 +1,9 @@
 {
-  "name": "pensador",
+  "name": "pensador-api",
   "version": "1.0.0",
   "description": "Pensador é um pacote Node que traz frases de pensadores",
   "main": "index.js",
-  "repository": "git@github.com:lhcgoncalves/pensador.git",
+  "repository": "git@github.com:lhcgoncalves/pensador-api.git",
   "author": "Luiz Gonçalves",
   "license": "MIT",
   "dependencies": {

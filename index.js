@@ -3,19 +3,23 @@ const fetch = require("node-fetch"),
   cheerio = require("cheerio"),
   iconv = require("iconv-lite");
 
-const baseUrl = "https://www.pensador.com/";
+  const baseUrl = "https://www.pensador.com/";
 
-module.exports = async options => {
-  if (options === undefined || options.term === undefined) {
-    _throw("A search term must be defined");
-  }
-
-  const searchTerm = slugify(`frases de ${options.term}`, {
-    replacement: "_",
-    remove: /[*+~.()'"!:@]/g,
-    lower: true
-  });
-
+  module.exports = async (options) => {
+    if (options === undefined) {
+      _throw("A search term must be defined");
+    }
+    // Default value for search term, Term is not mandatory anymore
+    var searchTerm = "frases_curtas";
+    // if term is set then is changed to a new value
+    if (options.term != "undefined") {
+      searchTerm = slugify(`frases de ${options.term}`, {
+        replacement: "_",
+        remove: /[*+~.()'"!:@]/g,
+        lower: true,
+      });
+    }
+  
   let keepGoing = true;
   let current = 1;
 

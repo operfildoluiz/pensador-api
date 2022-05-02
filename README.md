@@ -1,10 +1,11 @@
 # pensador-api
+
 🤔 Pensador é um pacote Node que traz frases de pensadores
 
 ## Instalação
 
 ```
-yarn add pensador-api 
+yarn add pensador-api
 // or
 npm install --save pensador-api
 ```
@@ -13,9 +14,7 @@ npm install --save pensador-api
 
 Primeiro, importe o pacote e depois chame a função passando as opções.
 
-
-*NOTE*: pensador-api é assíncrono, logo você deve usar Promises ou Async/Await.
-
+_NOTE_: pensador-api é assíncrono, logo você deve usar Promises ou Async/Await.
 
 ```
 const pensador = require('pensador-api')
@@ -55,13 +54,14 @@ const array = await pensador({ term: "Elon Musk", max: 5 })
 */
 ```
 
-
 ## Opções
 
-*term* (obrigatória) (string)
+_term_ (opcional) (string)
 
 Um termo a ser pesquisado. O pacote irá adicionar automaticamente o prefixo "frases de", padrão do site Pensador.com
 
-*max* (opcional) (integer)
+Caso nenhum seja utilizado, o term padrao será "frases_curtas"
+
+_max_ (opcional) (integer)
 
 Número máximo de registros que o pacote deve retornar. Deixe me branco para capturar todos os disponíveis no termo.

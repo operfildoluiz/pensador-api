@@ -3,7 +3,7 @@ const fetch = require("node-fetch"),
   cheerio = require("cheerio"),
   iconv = require("iconv-lite");
 
-  const baseUrl = 'https://www.pensador.com/';
+  const baseUrl = 'https://www.pensador.com';
 
   module.exports = async (options) => {
     if (typeof options == 'undefined') {

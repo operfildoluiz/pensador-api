@@ -1,67 +1,76 @@
 # pensador-api
 
-🤔 Pensador é um pacote Node que traz frases de pensadores
+Um pacote Node.js para buscar frases do [Pensador.com](https://www.pensador.com).
 
 ## Instalação
 
-```
+```bash
+npm install pensador-api
+# ou
 yarn add pensador-api
-// or
-npm install --save pensador-api
 ```
 
-## Como usar?
+## Uso
 
-Primeiro, importe o pacote e depois chame a função passando as opções.
-
-_NOTE_: pensador-api é assíncrono, logo você deve usar Promises ou Async/Await.
-
-```
+```js
 const pensador = require('pensador-api')
 
-...
+// Buscar frases por termo
+const result = await pensador({ term: 'Fernando Pessoa', max: 3 })
 
-const array = await pensador({ term: "Elon Musk", max: 5 })
+// Buscar frases curtas (padrão, sem term)
+const result = await pensador({ max: 5 })
+```
 
-// Returns:
-/*
+> **Nota:** a função é assíncrona — use `async/await` ou Promises.
+
+### Exemplo de retorno
+
+```json
 {
-    "total": 5,
-    "searchTerm": "frases_de_elon_musk",
+    "total": 3,
+    "searchTerm": "frases_de_fernando_pessoa",
     "phrases": [
         {
-            "author": "Elon Musk",
-            "text": "Quando algo é importante o suficiente, você realiza, mesmo que as chances não estejam a seu favor."
+            "author": "Fernando Pessoa",
+            "text": "Não sou nada. Nunca serei nada. Não posso querer ser nada."
         },
         {
-            "author": "Elon Musk",
-            "text": "Algumas pessoas não gostam de mudanças, mas você precisa abraçar a mudança se a alternativa for desastre."
+            "author": "Fernando Pessoa",
+            "text": "A arte é a expressão da nossa experiência real."
         },
         {
-            "author": "Elon Musk",
-            "text": "A vida é curta demais para desentendimentos de longo prazo."
-        },
-        {
-            "author": "Elon Musk",
-            "text": "A persistência é muito importante. Você não deve desistir, a menos que seja forçado a desistir."
-        },
-        {
-            "author": "Elon Musk",
-            "text": "As pessoas trabalham melhor quando sabem qual é o objetivo e o porquê. É importante que as pessoas estejam ansiosas para vir trabalhar de manhã e gostem de trabalhar."
+            "author": "Fernando Pessoa",
+            "text": "Tudo vale a pena se a alma não é pequena."
         }
     ]
 }
-*/
 ```
 
 ## Opções
 
-_term_ (opcional) (string)
+| Opção  | Tipo    | Obrigatório | Padrão          | Descrição |
+|--------|---------|-------------|-----------------|-----------|
+| `term` | string  | não         | `frases_curtas` | Autor ou tema a pesquisar. O prefixo `"frases de"` é adicionado automaticamente. |
+| `max`  | integer | não         | sem limite      | Número máximo de frases a retornar. Omita para buscar todas as disponíveis para o termo. |
 
-Um termo a ser pesquisado. O pacote irá adicionar automaticamente o prefixo "frases de", padrão do site Pensador.com
+## Resposta
 
-Caso nenhum seja utilizado, o term padrao será "frases_curtas"
+| Campo        | Tipo    | Descrição |
+|--------------|---------|-----------|
+| `total`      | integer | Quantidade de frases retornadas. |
+| `searchTerm` | string  | Slug utilizado na busca (gerado a partir do `term`). |
+| `phrases`    | array   | Lista de objetos com `author` (string) e `text` (string). |
 
-_max_ (opcional) (integer)
+## ⚠️ Disclaimer
 
-Número máximo de registros que o pacote deve retornar. Deixe me branco para capturar todos os disponíveis no termo.
+Este pacote funciona fazendo scraping do site [Pensador.com](https://www.pensador.com). Por isso:
+
+- O funcionamento **depende inteiramente** da disponibilidade e da estrutura HTML do Pensador.com. Mudanças no site podem quebrar o pacote.
+- O uso deste pacote está sujeito aos **[Termos de Uso do Pensador.com](https://www.pensador.com/termos_de_uso/)**. Consulte-os antes de utilizar em produção.
+- Este pacote **não é oficial** e não é mantido nem afiliado ao Pensador.com.
+- Use com responsabilidade: evite requisições excessivas que possam sobrecarregar o serviço.
+
+## Licença
+
+[MIT](LICENSE)

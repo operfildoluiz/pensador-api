@@ -12,7 +12,7 @@ const fetch = require("node-fetch"),
     // Default value for search term, Term is not mandatory anymore
     var searchTerm = 'frases_curtas';
     // if term is set then is changed to a new value
-    if (options.term != 'undefined') {
+    if (options.term !== undefined) {
       searchTerm = slugify(`frases de ${options.term}`, {
         replacement: '_',
         remove: /[*+~.()'"!:@]/g,
@@ -48,7 +48,13 @@ const fetch = require("node-fetch"),
 
   async function fetchPage(searchTerm, current = 1) {
     return new Promise((resolve, reject) => {
-      fetch(`${baseUrl}/${searchTerm}/${current}`)
+      fetch(`${baseUrl}/${searchTerm}/${current}`, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+          'Accept-Language': 'pt-BR,pt;q=0.9',
+        }
+      })
         .then(res => res.arrayBuffer())
         .then(arrayBuffer =>
           iconv.decode(Buffer.from(arrayBuffer), "utf-8").toString()
@@ -64,17 +70,11 @@ const fetch = require("node-fetch"),
         const phrases = [];
         const $ = cheerio.load(htmlContent);
         $(".thought-card").each(function(i, e) {
-          phrases.push({
-            author: $(this)
-              .find("a")
-              .first()
-              .text(),
-            text: $(this)
-              .find("p")
-              .first()
-              .text()
-              .replace(/\n/g, "")
-          });
+          const text = $(this).find("p.frase").first().text().replace(/\n/g, "").trim();
+          const author = $(this).find(".author-name").first().text().trim();
+          if (text) {
+            phrases.push({ author, text });
+          }
         });
 
         let next = false;
